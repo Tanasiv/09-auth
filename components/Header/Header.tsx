@@ -1,18 +1,16 @@
 import Link from "next/link";
+import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
 
 export default function Header() {
   return (
     <header>
-      <Link href="/">NoteHub</Link>
-
       <nav>
         <ul>
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/notes">Notes</Link>
           </li>
-          <li>
-             <Link href="/notes/filter/all">Notes</Link>
-          </li>
+
+          <AuthNavigation />
         </ul>
       </nav>
     </header>
