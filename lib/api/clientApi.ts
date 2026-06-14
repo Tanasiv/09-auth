@@ -2,29 +2,26 @@ import { api } from "./api";
 import type { User } from "@/types/user";
 import type { Note } from "@/types/note";
 
-/* -------------------- AUTH -------------------- */
+/* ---------------- AUTH ---------------- */
 
 export const register = async (data: {
   email: string;
   password: string;
 }) => {
-  await api.post("/auth/register", data);
+  const res = await api.post<User>("/auth/register", data);
+  return res.data;
 };
 
 export const login = async (data: {
   email: string;
   password: string;
 }) => {
-  await api.post("/auth/login", data);
+  const res = await api.post<User>("/auth/login", data);
+  return res.data;
 };
 
 export const logout = async () => {
   await api.post("/auth/logout");
-};
-
-export const checkSession = async () => {
-  const res = await api.get<User | null>("/auth/session");
-  return res.data;
 };
 
 export const getMe = async () => {
@@ -37,13 +34,7 @@ export const updateMe = async (data: { username: string }) => {
   return res.data;
 };
 
-/* -------------------- NOTES -------------------- */
-
-type CreateNote = {
-  title: string;
-  content: string;
-  tag: string;
-};
+/* ---------------- NOTES ---------------- */
 
 type NotesResponse = {
   notes: Note[];
@@ -53,8 +44,7 @@ type NotesResponse = {
 export const fetchNotes = async (
   page: number,
   search: string,
-  tag: string,
-  cookie?: string
+  tag: string
 ) => {
   const res = await api.get<NotesResponse>("/notes", {
     params: {
@@ -63,7 +53,6 @@ export const fetchNotes = async (
       search,
       tag: tag === "all" ? undefined : tag,
     },
-    headers: cookie ? { Cookie: cookie } : {},
   });
 
   return res.data;
@@ -74,11 +63,16 @@ export const fetchNoteById = async (id: string) => {
   return res.data;
 };
 
-export const createNote = async (data: CreateNote) => {
+export const createNote = async (data: {
+  title: string;
+  content: string;
+  tag: string;
+}) => {
   const res = await api.post<Note>("/notes", data);
   return res.data;
 };
 
 export const deleteNote = async (id: string) => {
-  await api.delete(`/notes/${id}`);
+  const res = await api.delete<Note>(`/notes/${id}`);
+  return res.data;
 };
