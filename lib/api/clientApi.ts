@@ -1,22 +1,14 @@
 import { api } from "./api";
 import type { User } from "@/types/user";
 import type { Note } from "@/types/note";
-
-/* ---------------- AUTH ---------------- */
-
-export const register = async (data: {
-  email: string;
-  password: string;
-}) => {
-  const res = await api.post<User>("/auth/register", data);
+/* AUTH */
+export const login = async (data: { email: string; password: string }) => {
+  const res = await api.post<User>("/auth/login", data);
   return res.data;
 };
 
-export const login = async (data: {
-  email: string;
-  password: string;
-}) => {
-  const res = await api.post<User>("/auth/login", data);
+export const register = async (data: { email: string; password: string }) => {
+  const res = await api.post<User>("/auth/register", data);
   return res.data;
 };
 
@@ -24,18 +16,22 @@ export const logout = async () => {
   await api.post("/auth/logout");
 };
 
+export const checkSession = async () => {
+  const res = await api.get<User>("/auth/session");
+  return res.data;
+};
+
 export const getMe = async () => {
   const res = await api.get<User>("/users/me");
   return res.data;
 };
 
-export const updateMe = async (data: { username: string }) => {
+export const updateMe = async (data: Partial<User>) => {
   const res = await api.patch<User>("/users/me", data);
   return res.data;
 };
 
-/* ---------------- NOTES ---------------- */
-
+/* NOTES */
 type NotesResponse = {
   notes: Note[];
   totalPages: number;
@@ -63,11 +59,7 @@ export const fetchNoteById = async (id: string) => {
   return res.data;
 };
 
-export const createNote = async (data: {
-  title: string;
-  content: string;
-  tag: string;
-}) => {
+export const createNote = async (data: Partial<Note>) => {
   const res = await api.post<Note>("/notes", data);
   return res.data;
 };

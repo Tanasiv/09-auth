@@ -1,33 +1,38 @@
 "use client";
 
-import { useAuthStore } from "@/lib/store/authStore";
-import { logout } from "@/lib/api/clientApi";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/store/authStore";
+import { logout as logoutApi } from "@/lib/api/clientApi";
 
 export default function AuthNavigation() {
-  const { user, isAuthenticated, clear } = useAuthStore();
+  const { isAuthenticated, logout } = useAuthStore();
   const router = useRouter();
 
   const handleLogout = async () => {
-    await logout();
-    clear();
-    router.push("/sign-in");
+    try {
+      await logoutApi(); // API logout
+    } finally {
+      logout(); // clear store
+      router.push("/sign-in");
+    }
   };
 
   return (
-    <>
+    <nav>
       {isAuthenticated ? (
         <>
-          <li><a href="/profile">Profile</a></li>
-          <li>{user?.email}</li>
-          <li><button onClick={handleLogout}>Logout</button></li>
+          <Link href="/profile">Profile</Link>
+          <Link href="/notes">Notes</Link>
+
+          <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
         <>
-          <li><a href="/sign-in">Login</a></li>
-          <li><a href="/sign-up">Sign up</a></li>
+          <Link href="/sign-in">Sign in</Link>
+          <Link href="/sign-up">Sign up</Link>
         </>
       )}
-    </>
+    </nav>
   );
 }

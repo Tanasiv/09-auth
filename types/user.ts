@@ -3,10 +3,3 @@ export interface User {
   username: string;
   avatar: string;
 }
-
-export type Note = {
-  id: string;
-  title: string;
-  content: string;
-  tag: string;
-};
