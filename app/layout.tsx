@@ -1,4 +1,4 @@
-import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import ReactQueryProvider from "@/lib/providers/ReactQueryProvider";
 
 export default function RootLayout({
   children,
@@ -8,7 +8,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <ReactQueryProvider>
+          {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );
