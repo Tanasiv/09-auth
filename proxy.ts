@@ -12,7 +12,6 @@ export function middleware(req: NextRequest) {
     req.nextUrl.pathname.startsWith("/profile") ||
     req.nextUrl.pathname.startsWith("/notes");
 
-
   if (!accessToken && !refreshToken && isPrivateRoute) {
     return NextResponse.redirect(new URL("/sign-in", req.url));
   }
