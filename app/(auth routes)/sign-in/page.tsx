@@ -30,9 +30,22 @@ export default function SignInPage() {
   return (
     <main>
       <form onSubmit={onSubmit}>
-        <input value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
         <button type="submit">Login</button>
+
         <p>{error}</p>
       </form>
     </main>

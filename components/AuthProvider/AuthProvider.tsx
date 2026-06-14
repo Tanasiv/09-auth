@@ -10,7 +10,7 @@ export default function AuthProvider({
   children: React.ReactNode;
 }) {
   const setUser = useAuthStore((s) => s.setUser);
-  const logout = useAuthStore((s) => s.logout);
+  const logout = useAuthStore((s) => s.clear);
 
   useEffect(() => {
     const initAuth = async () => {

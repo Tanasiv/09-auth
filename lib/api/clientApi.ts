@@ -1,6 +1,6 @@
 import { api } from "./api";
-import type { User } from "@/types/user";
-import type { Note } from "@/types/note";
+import type { Note, User } from "@/types";
+
 /* AUTH */
 export const login = async (data: { email: string; password: string }) => {
   const res = await api.post<User>("/auth/login", data);
@@ -32,25 +32,8 @@ export const updateMe = async (data: Partial<User>) => {
 };
 
 /* NOTES */
-type NotesResponse = {
-  notes: Note[];
-  totalPages: number;
-};
-
-export const fetchNotes = async (
-  page: number,
-  search: string,
-  tag: string
-) => {
-  const res = await api.get<NotesResponse>("/notes", {
-    params: {
-      page,
-      perPage: 12,
-      search,
-      tag: tag === "all" ? undefined : tag,
-    },
-  });
-
+export const fetchNotes = async () => {
+  const res = await api.get<{ notes: Note[] }>("/notes");
   return res.data;
 };
 

@@ -6,14 +6,14 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { logout as logoutApi } from "@/lib/api/clientApi";
 
 export default function AuthNavigation() {
-  const { isAuthenticated, logout } = useAuthStore();
+  const { isAuthenticated, clear } = useAuthStore();
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
       await logoutApi(); // API logout
     } finally {
-      logout(); // clear store
+      clear(); // clear store
       router.push("/sign-in");
     }
   };
