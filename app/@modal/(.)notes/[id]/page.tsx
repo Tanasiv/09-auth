@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-import { fetchNoteById } from "@/lib/api/serverApi";
+import { fetchNoteById } from "@/app/api/serverApi";
 import NotePreviewClient from "./NotePreview.client";
 
 export default async function Page({

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { fetchNoteById } from "@/lib/api/serverApi";
+import { fetchNoteById } from "@/app/api/serverApi";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ id: string }> }

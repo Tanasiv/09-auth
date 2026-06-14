@@ -1,4 +1,4 @@
-import { fetchNotes } from "@/lib/api/serverApi";
+import { fetchNotes } from "@/app/api/serverApi";
 import { QueryClient } from "@tanstack/react-query";
 import type { Note } from "@/types/note";
 
