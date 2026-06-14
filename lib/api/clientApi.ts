@@ -31,9 +31,20 @@ export const updateMe = async (data: Partial<User>) => {
   return res.data;
 };
 
-/* NOTES */
-export const fetchNotes = async () => {
-  const res = await api.get<{ notes: Note[] }>("/notes");
+export const fetchNotes = async (
+  page: number,
+  search: string,
+  tag: string
+) => {
+  const res = await api.get("/notes", {
+    params: {
+      page,
+      perPage: 12,
+      search,
+      tag: tag === "all" ? undefined : tag,
+    },
+  });
+
   return res.data;
 };
 

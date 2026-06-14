@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteNote } from "@/lib/api/clientApi";
-import type { Note } from "@/types/note";
+import type { Note } from "@/types";
 
 export default function NoteList({ notes }: { notes: Note[] }) {
   const queryClient = useQueryClient();
@@ -21,8 +21,7 @@ export default function NoteList({ notes }: { notes: Note[] }) {
         <li key={note.id}>
           <h2>{note.title}</h2>
           <p>{note.content}</p>
-
-          <span>{note.tag}</span>
+          <p>{note.tag}</p>
 
           <Link href={`/notes/${note.id}`}>View</Link>
 

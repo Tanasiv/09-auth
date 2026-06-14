@@ -7,22 +7,28 @@ interface AuthStore {
 
   setUser: (user: User | null) => void;
   clear: () => void;
+  logout: () => void; 
 }
 
-export const useAuthStore =
-  create<AuthStore>()((set) => ({
-    user: null,
-    isAuthenticated: false,
+export const useAuthStore = create<AuthStore>()((set) => ({
+  user: null,
+  isAuthenticated: false,
 
-    setUser: (user) =>
-      set({
-        user,
-        isAuthenticated: !!user,
-      }),
+  setUser: (user) =>
+    set({
+      user,
+      isAuthenticated: !!user,
+    }),
 
-    clear: () =>
-      set({
-        user: null,
-        isAuthenticated: false,
-      }),
-  }));
+  clear: () =>
+    set({
+      user: null,
+      isAuthenticated: false,
+    }),
+
+  logout: () =>
+    set({
+      user: null,
+      isAuthenticated: false,
+    }),
+}));
