@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/lib/store/authStore";
-import { updateMe } from "@/app/api/clientApi";
+import { updateMe } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

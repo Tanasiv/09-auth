@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getMe } from "@/app/api/serverApi";
+import { getMe } from "@/lib/api/serverApi";
 
 export default async function ProfilePage() {
   const user = await getMe();

@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/lib/store/authStore";
-import { logout } from "@/app/api/clientApi";
+import { logout } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 
 export default function AuthNavigation() {
