@@ -1,9 +1,10 @@
 "use client";
 
-import { login, getMe } from "@/lib/api/clientApi";
+import { login } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import type { User } from "@/types";
 
 export default function SignInPage() {
   const setUser = useAuthStore((s) => s.setUser);
@@ -17,10 +18,9 @@ export default function SignInPage() {
     e.preventDefault();
 
     try {
-      await login({ email, password });
-      const user = await getMe();
-      setUser(user);
+      const user: User = await login({ email, password });
 
+      setUser(user);
       router.push("/profile");
     } catch {
       setError("Login failed");

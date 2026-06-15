@@ -15,27 +15,44 @@ export async function proxy(req: NextRequest) {
     pathname.startsWith("/profile") ||
     pathname.startsWith("/notes");
 
-  // 🔄 refresh flow
+  if (accessToken) {
+    if (isAuthRoute) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+    return NextResponse.next();
+  }
+
+  // 2. Refresh flow
   if (!accessToken && refreshToken) {
     try {
       const session = await checkSession();
 
-      const response = NextResponse.next();
+      const setCookie = session?.headers?.["set-cookie"];
 
-      if (session) {
+      if (setCookie) {
+        const response = NextResponse.next();
+
+        response.headers.set(
+          "set-cookie",
+          Array.isArray(setCookie)
+            ? setCookie.join(",")
+            : setCookie
+        );
+
+        if (isAuthRoute) {
+          return NextResponse.redirect(new URL("/", req.url));
+        }
+
         return response;
       }
     } catch {
-      // ignore
+      // fallthrough → treat as unauthenticated
     }
   }
 
-  if (!accessToken && !refreshToken && isPrivateRoute) {
+  // 3. No auth → block private routes
+  if (isPrivateRoute) {
     return NextResponse.redirect(new URL("/sign-in", req.url));
-  }
-
-  if ((accessToken || refreshToken) && isAuthRoute) {
-    return NextResponse.redirect(new URL("/", req.url));
   }
 
   return NextResponse.next();

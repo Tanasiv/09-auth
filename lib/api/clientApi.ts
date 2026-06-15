@@ -26,7 +26,7 @@ export const getMe = async () => {
   return res.data;
 };
 
-export const updateMe = async (data: Partial<User>) => {
+export const updateMe = async (data: { username: string }) => {
   const res = await api.patch<User>("/users/me", data);
   return res.data;
 };

@@ -7,7 +7,7 @@ interface AuthStore {
 
   setUser: (user: User | null) => void;
   clear: () => void;
-  logout: () => void; 
+  logout: () => void;
 }
 
 export const useAuthStore = create<AuthStore>()((set) => ({
