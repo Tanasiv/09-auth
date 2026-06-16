@@ -6,16 +6,14 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { logout as logoutApi } from "@/lib/api/clientApi";
 
 export default function AuthNavigation() {
-  const { isAuthenticated, logout, user } = useAuthStore();
+  const { isAuthenticated, clear, user } = useAuthStore();
   const router = useRouter();
 
   const handleLogout = async () => {
-    try {
-      await logoutApi();
-    } finally {
-      logout();
-      router.push("/sign-in");
-    }
+    await logoutApi();
+    clear();
+
+    router.push("/sign-in");
   };
 
   return (
@@ -27,7 +25,9 @@ export default function AuthNavigation() {
           <Link href="/profile">Profile</Link>
           <Link href="/notes">Notes</Link>
 
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout}>
+            Logout
+          </button>
         </>
       ) : (
         <>
