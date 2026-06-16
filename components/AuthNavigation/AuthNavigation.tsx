@@ -12,29 +12,40 @@ export default function AuthNavigation() {
   const handleLogout = async () => {
     await logoutApi();
     clear();
-
     router.push("/sign-in");
   };
 
-  return (
-    <nav>
-      {isAuthenticated ? (
-        <>
-          <span>{user?.email}</span>
+  if (isAuthenticated) {
+    return (
+      <>
+        <li>{user?.email}</li>
 
+        <li>
           <Link href="/profile">Profile</Link>
-          <Link href="/notes">Notes</Link>
+        </li>
 
-          <button onClick={handleLogout}>
+        <li>
+          <Link href="/notes">Notes</Link>
+        </li>
+
+        <li>
+          <button type="button" onClick={handleLogout}>
             Logout
           </button>
-        </>
-      ) : (
-        <>
-          <Link href="/sign-in">Sign in</Link>
-          <Link href="/sign-up">Sign up</Link>
-        </>
-      )}
-    </nav>
+        </li>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <li>
+        <Link href="/sign-in">Sign in</Link>
+      </li>
+
+      <li>
+        <Link href="/sign-up">Sign up</Link>
+      </li>
+    </>
   );
 }
