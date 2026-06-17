@@ -1,3 +1,5 @@
+import styles from "./Modal.module.css";
+
 type ModalProps = {
   onClose?: () => void;
   children: React.ReactNode;
@@ -5,12 +7,14 @@ type ModalProps = {
 
 export default function Modal({ onClose, children }: ModalProps) {
   return (
-    <div>
-      <div>{children}</div>
+    <div className={styles.backdrop}>
+      <div className={styles.modal}>
+        {children}
 
-      {onClose && (
-        <button onClick={onClose}>Close</button>
-      )}
+        {onClose && (
+          <button onClick={onClose}>Close</button>
+        )}
+      </div>
     </div>
   );
 }

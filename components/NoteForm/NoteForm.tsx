@@ -1,4 +1,5 @@
 "use client";
+import styles from "./NoteForm.module.css";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "@/lib/api/clientApi";
@@ -32,21 +33,29 @@ export default function NoteForm({ onClose }: Props) {
     mutation.mutate(draft);
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
+ return (
+  <form className={styles.form} onSubmit={handleSubmit}>
+    <div className={styles.formGroup}>
       <input
+        className={styles.input}
         value={draft.title}
         onChange={(e) => handleChange("title", e.target.value)}
         placeholder="Title"
       />
+    </div>
 
+    <div className={styles.formGroup}>
       <textarea
+        className={styles.textarea}
         value={draft.content}
         onChange={(e) => handleChange("content", e.target.value)}
         placeholder="Content"
       />
+    </div>
 
+    <div className={styles.formGroup}>
       <select
+        className={styles.select}
         value={draft.tag}
         onChange={(e) => handleChange("tag", e.target.value)}
       >
@@ -56,21 +65,24 @@ export default function NoteForm({ onClose }: Props) {
         <option value="Meeting">Meeting</option>
         <option value="Shopping">Shopping</option>
       </select>
+    </div>
 
-      <button type="submit">Create</button>
+    <div className={styles.actions}>
+      <button className={styles.submitButton} type="submit">
+        Create
+      </button>
 
       <button
+        className={styles.cancelButton}
         type="button"
         onClick={() => {
-          if (onClose) {
-            onClose();
-          } else {
-            router.back();
-          }
+          if (onClose) onClose();
+          else router.back();
         }}
       >
         Cancel
       </button>
-    </form>
-  );
+    </div>
+  </form>
+);
 }

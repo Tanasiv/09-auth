@@ -24,11 +24,11 @@ export default function Pagination({
 }: PaginationProps) {
   return (
     <ReactPaginate
-      className={styles.pagination}
-      pageCount={pageCount}
-      forcePage={currentPage - 1}  
-      onPageChange={(e) => onPageChange(e.selected + 1)}
-      activeClassName={styles.selected}
-    />
+  className={styles.pagination}
+  pageCount={pageCount}
+  forcePage={currentPage - 1}
+  onPageChange={(e) => onPageChange(e.selected + 1)}
+  activeClassName={styles.active}
+/>
   );
 }

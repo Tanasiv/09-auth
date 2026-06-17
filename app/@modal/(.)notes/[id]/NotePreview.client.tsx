@@ -1,5 +1,7 @@
 "use client";
 
+import styles from "./NotePreview.module.css";
+
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api/clientApi";
@@ -38,12 +40,14 @@ export default function NotePreviewClient({ id }: Props) {
   }
 
   return (
-    <Modal onClose={handleClose}>
-      <h2>{data.title}</h2>
-      <p>{data.content}</p>
-      <p>{data.tag}</p>
+    <Modal>
+  <h2 className={styles.title}>{data.title}</h2>
+  <p className={styles.content}>{data.content}</p>
+  <p className={styles.tag}>{data.tag}</p>
 
-      <button onClick={handleClose}>Close</button>
-    </Modal>
+  <button className={styles.closeButton} onClick={handleClose}>
+    Close
+  </button>
+</Modal>
   );
 }

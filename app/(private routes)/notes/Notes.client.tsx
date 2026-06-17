@@ -1,4 +1,5 @@
 "use client";
+import styles from "./Notes.module.css"; 
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "@/lib/api/clientApi";
@@ -12,16 +13,22 @@ export default function NotesClient() {
 
   const notes = data?.notes ?? [];
 
-  return (
-    <main>
+return (
+  <main className={styles.app}>
+    <div className={styles.toolbar}>
       <h1>Notes</h1>
 
-      {notes.map((note: Note) => (
-        <div key={note.id}>
-          <h3>{note.title}</h3>
-          <p>{note.content}</p>
-        </div>
-      ))}
-    </main>
-  );
+      <button className={styles.button}>
+        Create note
+      </button>
+    </div>
+
+    {notes.map((note: Note) => (
+      <div key={note.id}>
+        <h3>{note.title}</h3>
+        <p>{note.content}</p>
+      </div>
+    ))}
+  </main>
+);
 }

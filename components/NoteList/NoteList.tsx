@@ -1,4 +1,5 @@
 "use client";
+import styles from "./NoteList.module.css";
 
 import Link from "next/link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -16,18 +17,29 @@ export default function NoteList({ notes }: { notes: Note[] }) {
   });
 
   return (
-    <ul>
+    <ul className={styles.list}>
       {notes.map((note) => (
-        <li key={note.id}>
-          <h2>{note.title}</h2>
-          <p>{note.content}</p>
-          <p>{note.tag}</p>
+        <li key={note.id} className={styles.listItem}>
+          <h2 className={styles.title}>{note.title}</h2>
 
-          <Link href={`/notes/${note.id}`}>View</Link>
+          <p className={styles.content}>{note.content}</p>
 
-          <button onClick={() => mutation.mutate(note.id)}>
-            Delete
-          </button>
+          <div className={styles.footer}>
+            <span className={styles.tag}>{note.tag}</span>
+
+            <div>
+              <Link className={styles.link} href={`/notes/${note.id}`}>
+                View
+              </Link>
+
+              <button
+                className={styles.button}
+                onClick={() => mutation.mutate(note.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
         </li>
       ))}
     </ul>

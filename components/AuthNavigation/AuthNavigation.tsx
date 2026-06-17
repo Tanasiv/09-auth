@@ -1,4 +1,5 @@
 "use client";
+import styles from "./AuthNavigation.module.css";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,36 +17,47 @@ export default function AuthNavigation() {
   };
 
   if (isAuthenticated) {
-    return (
-      <>
-        <li>{user?.email}</li>
-
-        <li>
-          <Link href="/profile">Profile</Link>
-        </li>
-
-        <li>
-          <Link href="/notes">Notes</Link>
-        </li>
-
-        <li>
-          <button type="button" onClick={handleLogout}>
-            Logout
-          </button>
-        </li>
-      </>
-    );
-  }
-
   return (
     <>
-      <li>
-        <Link href="/sign-in">Sign in</Link>
+      <li className={styles.userEmail}>{user?.email}</li>
+
+      <li className={styles.navigationItem}>
+        <Link className={styles.navigationLink} href="/profile">
+          Profile
+        </Link>
       </li>
 
-      <li>
-        <Link href="/sign-up">Sign up</Link>
+      <li className={styles.navigationItem}>
+        <Link className={styles.navigationLink} href="/notes">
+          Notes
+        </Link>
+      </li>
+
+      <li className={styles.navigationItem}>
+        <button
+          className={styles.logoutButton}
+          type="button"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
       </li>
     </>
   );
+}
+  return (
+  <>
+    <li className={styles.navigationItem}>
+      <Link className={styles.navigationLink} href="/sign-in">
+        Sign in
+      </Link>
+    </li>
+
+    <li className={styles.navigationItem}>
+      <Link className={styles.navigationLink} href="/sign-up">
+        Sign up
+      </Link>
+    </li>
+  </>
+);
 }

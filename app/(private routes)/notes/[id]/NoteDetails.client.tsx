@@ -1,4 +1,5 @@
 "use client";
+import styles from "./NoteDetails.module.css";
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api/clientApi";
@@ -16,11 +17,20 @@ export default function NoteDetails({
   if (!note) return <p>Loading...</p>;
 
   return (
-    <main>
-      <h1>{note.title}</h1>
-      <p>{note.content}</p>
-      <p>{note.tag}</p>
-      <p>{note.createdAt}</p>
-    </main>
-  );
+  <main className={styles.main}>
+    <div className={styles.container}>
+      <div className={styles.item}>
+        <div className={styles.header}>
+          <h2>{note.title}</h2>
+        </div>
+
+        <p className={styles.content}>{note.content}</p>
+
+        <span className={styles.tag}>{note.tag}</span>
+
+        <p className={styles.date}>{note.createdAt}</p>
+      </div>
+    </div>
+  </main>
+);
 }

@@ -1,14 +1,20 @@
+import SidebarNotes from "./@sidebar/Sidebar";
+import styles from "./layout.module.css";
+
 export default function Layout({
   children,
-  sidebar,
 }: {
   children: React.ReactNode;
-  sidebar: React.ReactNode;
 }) {
   return (
-    <section style={{ display: "flex" }}>
-      <aside>{sidebar}</aside>
-      <main>{children}</main>
+    <section className={styles.container}>
+      <aside className={styles.sidebar}>
+        <SidebarNotes />
+      </aside>
+
+      <main className={styles.notesWrapper}>
+        {children}
+      </main>
     </section>
   );
 }
