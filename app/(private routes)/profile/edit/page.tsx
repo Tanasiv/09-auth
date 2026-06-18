@@ -1,5 +1,5 @@
 "use client";
-import styles from "./ProfileEditPage.module.css";
+import styles from "./EditProfilePage.module.css";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";

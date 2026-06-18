@@ -1,4 +1,4 @@
-import SidebarNotes from "./@sidebar/Sidebar";
+import SidebarNotes from "./@sidebar/default";
 import styles from "./layout.module.css";
 
 export default function Layout({
