@@ -40,14 +40,14 @@ export default function NotePreviewClient({ id }: Props) {
   }
 
   return (
-    <Modal>
-  <h2 className={styles.title}>{data.title}</h2>
-  <p className={styles.content}>{data.content}</p>
-  <p className={styles.tag}>{data.tag}</p>
+  <Modal onClose={handleClose}>
+    <h2 className={styles.title}>{data.title}</h2>
+    <p className={styles.content}>{data.content}</p>
+    <p className={styles.tag}>{data.tag}</p>
 
-  <button className={styles.closeButton} onClick={handleClose}>
-    Close
-  </button>
-</Modal>
-  );
+    <button className={styles.closeButton} onClick={handleClose}>
+      Close
+    </button>
+  </Modal>
+);
 }

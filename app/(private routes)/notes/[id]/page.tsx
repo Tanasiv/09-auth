@@ -1,45 +1,33 @@
-import type { Metadata } from "next";
+"use client";
 
-import { fetchNoteById } from "@/lib/api/serverApi";
+import styles from "./NoteDetails.module.css";
+import { useQuery } from "@tanstack/react-query";
+import { fetchNoteById } from "@/lib/api/clientApi";
 
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
-
-import NoteDetails from "./NoteDetails.client";
-
-export async function generateMetadata(
-  { params }: { params: Promise<{ id: string }> }
-): Promise<Metadata> {
-  const { id } = await params;
-
-  const note = await fetchNoteById(id);
-
-  return {
-    title: note.title,
-    description: note.content.slice(0, 150),
-  };
-}
-
-export default async function NotePage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({
+export default function NoteDetails({ id }: { id: string }) {
+  const { data: note, isLoading, isError } = useQuery({
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
   });
 
+  if (isLoading) return <p>Loading...</p>;
+  if (isError || !note) return <p>Error loading note</p>;
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <NoteDetails id={id} />
-    </HydrationBoundary>
+    <main className={styles.main}>
+      <div className={styles.container}>
+        <div className={styles.item}>
+          <div className={styles.header}>
+            <h2>{note.title}</h2>
+          </div>
+
+          <p className={styles.content}>{note.content}</p>
+
+          <span className={styles.tag}>{note.tag}</span>
+
+          <p className={styles.date}>{note.createdAt}</p>
+        </div>
+      </div>
+    </main>
   );
 }

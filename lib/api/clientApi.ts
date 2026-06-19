@@ -62,3 +62,5 @@ export const deleteNote = async (id: string) => {
   const res = await api.delete<Note>(`/notes/${id}`);
   return res.data;
 };
+
+console.log("API_URL =", process.env.NEXT_PUBLIC_API_URL);
