@@ -31,7 +31,6 @@ export const getMe = async () => {
 
   return res.data;
 };
-
 /* ---------------- NOTES ---------------- */
 
 type NotesResponse = {
