@@ -63,4 +63,4 @@ export const deleteNote = async (id: string) => {
   return res.data;
 };
 
-console.log("API_URL =", process.env.NEXT_PUBLIC_API_URL);
+console.log(process.env.NEXT_PUBLIC_API_URL);
